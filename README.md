@@ -101,3 +101,13 @@ Le design reprend une direction minimaliste : fond clair, accent vert profond, t
 Les projets et certificats portant `placeholder: true` restent des modèles dans le fichier de données et ne sont plus affichés sur le site. Après avoir renseigné un élément réel, passer `placeholder` à `false` pour le publier. Sans élément publié, les sections restent accessibles avec un message indiquant leur absence (ce comportement remplace le masquage décrit précédemment).
 
 Pour ajouter votre portrait, placer le fichier dans `public/images/portrait.webp` puis renseigner `portrait: "images/portrait.webp"` et `portraitAlt`. En son absence, le monogramme est affiché. Le contact fonctionne par e-mail, sans formulaire ni espace administrateur.
+
+## Publication automatique sur GitHub Pages
+
+Le workflow `.github/workflows/deploy.yml` compile et publie `dist/` à chaque push sur `main`. Il utilise Node.js 24 et la base `/portfolio/`. La configuration locale conserve sa base relative.
+
+Activation initiale : ouvrir https://github.com/Armand413/portfolio/settings/pages puis choisir **GitHub Actions** comme source dans **Build and deployment**. Dans l’onglet **Actions**, ouvrir **Publier le portfolio sur GitHub Pages**, puis **Run workflow** si nécessaire.
+
+Adresse attendue après un déploiement réussi : https://armand413.github.io/portfolio/
+
+Pour les mises à jour, enregistrer et pousser les fichiers modifiés sur `main`. Ne pas publier le code source brut depuis la branche `main` avec « Deploy from a branch » : le workflow publie les fichiers compilés. La dépendance `gh-pages` n’est pas nécessaire à ce workflow.
