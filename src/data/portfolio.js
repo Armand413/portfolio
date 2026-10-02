@@ -46,7 +46,7 @@ export const portfolio = {
       year: "2026",
       description:
         "Ce portfolio a été conçu  pour démontrer concrètement mes compétences en développement full-stack et en sécurité applicative",
-      role:"",
+      role: "",
       technologies: ["[React,Vite,Tailwind Css]"],
       problem: "",
       solution: "",
@@ -58,6 +58,47 @@ export const portfolio = {
       source: "",
       visual: "arch",
     },
+
+    {
+      id: "overthewire",
+      placeholder: false,
+      title: "OverTheWire Bandit — Linux & Cybersécurité",
+      category: "Challenge CTF",
+      year: "2026",
+
+      description:
+        "Lab pratique de cybersécurité réalisé avec OverTheWire Bandit afin de renforcer mes compétences en environnement Linux, en ligne de commande et en résolution de problèmes de sécurité. Les différents niveaux m'ont permis de travailler notamment avec SSH, la gestion des fichiers, les fichiers cachés, les permissions, la recherche de fichiers et plusieurs commandes Linux telles que find, grep, sort, uniq et strings. Chaque niveau est documenté dans un dépôt GitHub afin de conserver une trace des méthodes utilisées et des concepts appris.",
+
+      role:
+        "Participant et analyste — résolution des challenges, analyse des problèmes et documentation des solutions.",
+
+      technologies: [
+        "Linux",
+        "Bash",
+        "SSH",
+        "Git",
+        "GitHub"
+      ],
+
+      problem:
+        "Résoudre une série de challenges Linux et cybersécurité nécessitant l'utilisation du terminal, l'analyse de fichiers et la maîtrise progressive des commandes et mécanismes du système.",
+
+      solution:
+        "Analyse de chaque objectif, identification des informations utiles dans l'environnement, utilisation des commandes Linux adaptées, vérification du résultat puis documentation de la méthode de résolution. Les solutions sont organisées niveau par niveau dans un dépôt GitHub.",
+
+      choices:
+        "Privilégier une approche pratique basée sur l'expérimentation et la compréhension du fonctionnement des commandes plutôt que de simplement mémoriser les solutions. Les principales difficultés concernaient la manipulation de fichiers particuliers, la recherche de fichiers selon plusieurs critères et l'analyse de données non directement lisibles.",
+
+      result:
+        "Renforcement des compétences en Linux, terminal, SSH, recherche et analyse de fichiers, ainsi qu'en documentation technique et utilisation de Git/GitHub.",
+
+      image: "images/overthewire.png",
+      imageAlt: "Lab OverTheWire Bandit — Linux et cybersécurité",
+      demo: "",
+      source: "",
+      visual: "orbit",
+    }
+    ,
     {
       id: "projet-02",
       placeholder: true,
