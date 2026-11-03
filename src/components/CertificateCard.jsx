@@ -1,3 +1,4 @@
+import { useLanguage } from "../i18n/language";
 import { Award, FileText } from "lucide-react";
 import { ExternalLink } from "./ProjectCard";
 
@@ -9,13 +10,17 @@ function assetUrl(path) {
 }
 
 export default function CertificateCard({ certificate }) {
+  const { t } = useLanguage();
   return (
     <article className="certificate">
       <div className="certificate-visual">
         {certificate.image ? (
           <img
             src={assetUrl(certificate.image)}
-            alt={certificate.imageAlt || `Certificat : ${certificate.title}`}
+            alt={
+              certificate.imageAlt ||
+              `${t("Certificat")} : ${certificate.title}`
+            }
             width="640"
             height="450"
             loading="lazy"
@@ -27,25 +32,42 @@ export default function CertificateCard({ certificate }) {
       </div>
       <div className="certificate-content">
         {certificate.placeholder && (
-          <p className="eyebrow certificate-placeholder">Emplacement à personnaliser</p>
+          <p className="eyebrow certificate-placeholder">
+            {t("Emplacement à personnaliser")}
+          </p>
         )}
         <h3>{certificate.title}</h3>
         <div className="certificate-meta">
           <span>{certificate.issuer}</span>
-          {certificate.date && <span>Obtention : {certificate.date}</span>}
+          {certificate.date && (
+            <span>
+              {t("Obtention")} : {certificate.date}
+            </span>
+          )}
         </div>
-        {certificate.description && <p className="muted">{certificate.description}</p>}
+        {certificate.description && (
+          <p className="muted">{certificate.description}</p>
+        )}
         {certificate.credentialId && (
-          <p className="certificate-id">Identifiant : {certificate.credentialId}</p>
+          <p className="certificate-id">
+            {t("Identifiant")} : {certificate.credentialId}
+          </p>
         )}
         {(certificate.document || certificate.verificationUrl) && (
           <div className="certificate-links">
-            <ExternalLink href={assetUrl(certificate.document)} className="text-link">
-              <FileText size={16} aria-hidden="true" /> Consulter le certificat
+            <ExternalLink
+              href={assetUrl(certificate.document)}
+              className="text-link"
+            >
+              <FileText size={16} aria-hidden="true" />
+              {t("Consulter le certificat")}
               <span className="sr-only"> : {certificate.title}</span>
             </ExternalLink>
-            <ExternalLink href={certificate.verificationUrl} className="text-link">
-              Vérifier auprès de l’organisme
+            <ExternalLink
+              href={certificate.verificationUrl}
+              className="text-link"
+            >
+              {t("Vérifier auprès de l’organisme")}
               <span className="sr-only"> : {certificate.title}</span>
             </ExternalLink>
           </div>

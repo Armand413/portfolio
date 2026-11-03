@@ -822,3 +822,49 @@ main h3 {
     transition: none !important;
   }
 }
+
+/* Language switch and prominent profile resources. */
+.navigation-controls {
+  flex-shrink: 0;
+}
+.language-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 11px;
+}
+.selected-language {
+  color: var(--accent);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.profile-resources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+}
+.profile-resources:empty {
+  display: none;
+}
+@media (min-width: 900px) and (max-width: 1150px) {
+  .header-inner {
+    gap: 12px;
+  }
+  .nav {
+    gap: 11px;
+  }
+  .nav a {
+    font-size: 11px;
+  }
+  .navigation-controls {
+    gap: 7px;
+  }
+}

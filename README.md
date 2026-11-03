@@ -111,3 +111,15 @@ Activation initiale : ouvrir https://github.com/Armand413/portfolio/settings/pag
 Adresse attendue après un déploiement réussi : https://armand413.github.io/portfolio/
 
 Pour les mises à jour, enregistrer et pousser les fichiers modifiés sur `main`. Ne pas publier le code source brut depuis la branche `main` avec « Deploy from a branch » : le workflow publie les fichiers compilés. La dépendance `gh-pages` n’est pas nécessaire à ce workflow.
+
+## Français / English, CV et LinkedIn
+
+Le bouton **FR / EN** dans la navigation traduit les sections, projets, certificats et libellés accessibles. Le choix est mémorisé sur cet appareil. Le français reste la langue initiale. Les métadonnées et la langue HTML suivent le choix ; les robots sans JavaScript reçoivent les métadonnées françaises.
+
+- Texte français et informations partagées : `src/data/portfolio.js`.
+- Traductions anglaises : `src/data/portfolio.en.js`. Les projets et certificats sont associés par `id` ; les compétences et formations suivent le même ordre que les données françaises. Ajouter les traductions lors de chaque mise à jour. Un champ non traduit reprend sa valeur française.
+- Textes de l’interface : `src/i18n/messages.js`.
+- **CV** : déposer le vrai PDF dans `public/cv.pdf` pour activer automatiquement les liens de téléchargement dans l’accueil et la section À propos. Pour un autre nom, renseigner `cv` dans `portfolio.js`. Le fichier est vérifié avant affichage. Pour un fichier distant, CORS doit autoriser sa lecture et le navigateur peut l’ouvrir au lieu de le télécharger ; un PDF local est recommandé.
+- **LinkedIn** : renseigner l’URL HTTPS exacte du profil dans `socials`, entrée `LinkedIn`. Le bouton apparaît dans l’accueil et le lien dans Contact. Aucune destination n’est inventée.
+
+Les boutons dont les fichiers ou liens manquent restent masqués. La traduction et les boutons fonctionnent sur GitHub Pages sans backend.

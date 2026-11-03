@@ -1,5 +1,7 @@
+import { useLanguage } from "../i18n/language";
 import { ArrowDownRight, ArrowUpRight, Plus } from "lucide-react";
 export function ExternalLink({ href, children, className = "" }) {
+  const { t } = useLanguage();
   if (!href) return null;
   return (
     <a
@@ -10,11 +12,12 @@ export function ExternalLink({ href, children, className = "" }) {
     >
       {children}
       <ArrowUpRight size={17} aria-hidden="true" />
-      <span className="sr-only"> (nouvel onglet)</span>
+      <span className="sr-only">{t("(nouvel onglet)")}</span>
     </a>
   );
 }
 export default function ProjectCard({ project, index }) {
+  const { t } = useLanguage();
   return (
     <article className="project">
       <div className={`project-visual ${project.visual || "arch"}`}>
@@ -35,7 +38,9 @@ export default function ProjectCard({ project, index }) {
           </div>
         )}
         {project.placeholder && (
-          <span className="visual-label">EMPLACEMENT À PERSONNALISER</span>
+          <span className="visual-label">
+            {t("EMPLACEMENT À PERSONNALISER")}
+          </span>
         )}
         <span className="visual-number" aria-hidden="true">
           0{index + 1}
@@ -55,10 +60,13 @@ export default function ProjectCard({ project, index }) {
       </div>
       <details className="project-details">
         <summary>
-          Explorer le projet <Plus size={18} aria-hidden="true" />
+          {t("Explorer le projet")}
+          <Plus size={18} aria-hidden="true" />
         </summary>
         <div className="detail-content">
-          <p className="eyebrow">Rôle · {project.role}</p>
+          <p className="eyebrow">
+            {t("Rôle")} · {project.role}
+          </p>
           {[
             ["Le problème", project.problem],
             ["La solution", project.solution],
@@ -68,16 +76,16 @@ export default function ProjectCard({ project, index }) {
             .filter(([, text]) => text)
             .map(([title, text]) => (
               <div key={title}>
-                <h4>{title}</h4>
+                <h4>{t(title)}</h4>
                 <p>{text}</p>
               </div>
             ))}
           <div className="flex flex-wrap gap-5">
             <ExternalLink href={project.demo} className="text-link">
-              Voir la démonstration
+              {t("Voir la démonstration")}
             </ExternalLink>
             <ExternalLink href={project.source} className="text-link">
-              Voir le code source
+              {t("Voir le code source")}
             </ExternalLink>
           </div>
         </div>

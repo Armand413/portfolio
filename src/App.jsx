@@ -1,3 +1,4 @@
+import { useLanguage } from "./i18n/language";
 import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
@@ -11,13 +12,13 @@ import {
 import Navigation from "./components/Navigation";
 import CertificateCard from "./components/CertificateCard";
 import ProjectCard, { ExternalLink } from "./components/ProjectCard";
-import { portfolio as p } from "./data/portfolio";
 
 function SectionTitle({ label, title }) {
+  const { t } = useLanguage();
   return (
     <div className="section-heading">
-      <p className="eyebrow">// {label}</p>
-      <h2 id={label === "à propos" ? "about-title" : undefined}>{title}</h2>
+      <p className="eyebrow">// {t(label)}</p>
+      <h2 id={label === "à propos" ? "about-title" : undefined}>{t(title)}</h2>
     </div>
   );
 }
@@ -57,10 +58,17 @@ function useCv(url) {
   return available === url && !!url;
 }
 export default function App() {
-  const cvUrl = p.cv
-    ? /^https?:/.test(p.cv)
-      ? p.cv
-      : `${import.meta.env.BASE_URL}${p.cv.replace(/^\//, "")}`
+  const { t, language, data: p } = useLanguage();
+  const cvPath = p.cv || "cv.pdf";
+  const linkedIn = p.socials.find(
+    (social) =>
+      social.label.toLowerCase() === "linkedin" &&
+      /^https:\/\/(www\.)?linkedin\.com\//i.test(social.url),
+  );
+  const cvUrl = cvPath
+    ? /^https?:/.test(cvPath)
+      ? cvPath
+      : `${import.meta.env.BASE_URL}${cvPath.replace(/^\//, "")}`
     : "";
   const cvAvailable = useCv(cvUrl);
   const projects = p.projects.filter((project) => !project.placeholder);
@@ -69,17 +77,17 @@ export default function App() {
   );
   const hasHistory = p.experiences.length || p.education.length;
   const links = [
-    ["a-propos", "À propos"],
-    ["competences", "Compétences"],
-    ["projets", "Projets"],
-    ["certificats", "Certificats"],
-    ...(hasHistory ? [["parcours", "Parcours"]] : []),
-    ["contact", "Contact"],
+    ["a-propos", t("À propos")],
+    ["competences", t("Compétences")],
+    ["projets", t("Projets")],
+    ["certificats", t("Certificats")],
+    ...(hasHistory ? [["parcours", t("Parcours")]] : []),
+    ["contact", t("Contact")],
   ];
   return (
     <>
       <a className="skip-link" href="#contenu">
-        Aller au contenu
+        {t("Aller au contenu")}
       </a>
       <Navigation links={links} />
       <main id="contenu" tabIndex={-1}>
@@ -100,16 +108,36 @@ export default function App() {
                 ))}
               </h1>
               <p className="intro-name">
-                Bonjour, je suis <strong>{p.name}.</strong>
+                {t("Bonjour, je suis")} <strong>{p.name}.</strong>
               </p>
               <p className="hero-description muted">{p.introduction}</p>
               <div className="hero-actions">
                 <a className="button-primary" href="#projets">
-                  Voir mes projets <ArrowUpRight size={16} aria-hidden="true" />
+                  {t("Voir mes projets")}
+                  <ArrowUpRight size={16} aria-hidden="true" />
                 </a>
                 <a href="#contact" className="button-secondary">
-                  Me contacter
+                  {t("Me contacter")}
                 </a>
+              </div>
+              <div className="profile-resources">
+                {cvAvailable && (
+                  <a href={cvUrl} download className="button-secondary">
+                    <Download size={16} aria-hidden="true" />
+                    {t("Télécharger mon CV")}
+                  </a>
+                )}
+                {linkedIn && (
+                  <ExternalLink
+                    href={linkedIn.url}
+                    className="button-secondary"
+                  >
+                    <span className="linkedin-mark" aria-hidden="true">
+                      in
+                    </span>
+                    {t("Mon profil LinkedIn")}
+                  </ExternalLink>
+                )}
               </div>
             </div>
             <div className="hero-side">
@@ -128,16 +156,18 @@ export default function App() {
                   <ShieldCheck size={46} strokeWidth={1} aria-hidden="true" />
                   <span className="portrait-monogram">{p.monogram}</span>
                   <span className="portrait-label">
-                    COMPRENDRE · APPRENDRE · PROTÉGER
+                    {t("COMPRENDRE · APPRENDRE · PROTÉGER")}
                   </span>
                   <span className="portrait-note">
-                    Portrait à personnaliser
+                    {t("Portrait à personnaliser")}
                   </span>
                 </div>
               )}
               <div
                 className="terminal"
-                aria-label="Illustration de terminal : démarche d’apprentissage"
+                aria-label={t(
+                  "Illustration de terminal : démarche d’apprentissage",
+                )}
               >
                 <div className="terminal-bar">
                   <div aria-hidden="true">
@@ -145,21 +175,32 @@ export default function App() {
                     <i />
                     <i />
                   </div>
-                  <span>learning.sh — illustration</span>
+                  <span>{t("learning.sh — illustration")}</span>
                   <Terminal size={13} aria-hidden="true" />
                 </div>
-                <p className="terminal-command">$ cat parcours.json</p>
+                <p className="terminal-command">{t("$ cat profile.json")}</p>
                 <pre>
-                  {"{\n  "}
-                  <span>"domaine"</span>
-                  {': "cybersécurité",\n  '}
-                  <span>"démarche"</span>
-                  {
-                    ': [\n    "comprendre",\n    "expérimenter",\n    "documenter"\n  ]\n}'
-                  }
+                  {JSON.stringify(
+                    language === "en"
+                      ? {
+                          field: "cybersecurity",
+                          approach: ["understand", "experiment", "document"],
+                        }
+                      : {
+                          domaine: "cybersécurité",
+                          démarche: [
+                            "comprendre",
+                            "expérimenter",
+                            "documenter",
+                          ],
+                        },
+                    null,
+                    2,
+                  )}
                 </pre>
                 <p className="terminal-status">
-                  → Un apprentissage continu<span aria-hidden="true"> _</span>
+                  {t("→ Un apprentissage continu")}
+                  <span aria-hidden="true"> _</span>
                 </p>
               </div>
             </div>
@@ -186,27 +227,32 @@ export default function App() {
               <div className="about-copy">
                 <p className="muted">{p.approach}</p>
                 <div className="approach-row">
-                  <span>comprendre</span>
-                  <p>Les systèmes et les risques.</p>
+                  <span>{t("comprendre")}</span>
+                  <p>{t("Les systèmes et les risques.")}</p>
                 </div>
                 <div className="approach-row">
-                  <span>expérimenter</span>
-                  <p>Dans un environnement autorisé.</p>
+                  <span>{t("expérimenter")}</span>
+                  <p>{t("Dans un environnement autorisé.")}</p>
                 </div>
                 <div className="approach-row">
-                  <span>documenter</span>
-                  <p>La démarche, les observations et les limites.</p>
+                  <span>{t("documenter")}</span>
+                  <p>{t("La démarche, les observations et les limites.")}</p>
                 </div>
                 {cvAvailable && (
                   <a href={cvUrl} download className="text-link">
-                    Télécharger mon CV <Download size={16} aria-hidden="true" />
+                    {t("Télécharger mon CV")}
+                    <Download size={16} aria-hidden="true" />
                   </a>
                 )}
               </div>
             </div>
           </div>
         </section>
-        <section id="competences" className="section" aria-label="Compétences">
+        <section
+          id="competences"
+          className="section"
+          aria-label={t("Compétences")}
+        >
           <div className="container">
             <SectionTitle
               label="compétences"
@@ -227,7 +273,7 @@ export default function App() {
             </div>
           </div>
         </section>
-        <section id="projets" className="section" aria-label="Projets">
+        <section id="projets" className="section" aria-label={t("Projets")}>
           <div className="container">
             <SectionTitle label="projets" title="Projets & laboratoires" />
             {projects.length ? (
@@ -241,11 +287,17 @@ export default function App() {
                 ))}
               </div>
             ) : (
-              <p className="empty-state">Aucun projet publié pour le moment.</p>
+              <p className="empty-state">
+                {t("Aucun projet publié pour le moment.")}
+              </p>
             )}
           </div>
         </section>
-        <section id="certificats" className="section" aria-label="Certificats">
+        <section
+          id="certificats"
+          className="section"
+          aria-label={t("Certificats")}
+        >
           <div className="container">
             <SectionTitle label="certificats" title="Certifications" />
             {certificates.length ? (
@@ -259,7 +311,7 @@ export default function App() {
               </div>
             ) : (
               <p className="empty-state">
-                Aucun certificat publié pour le moment.
+                {t("Aucun certificat publié pour le moment.")}
               </p>
             )}
           </div>
@@ -268,27 +320,28 @@ export default function App() {
           <section
             id="parcours"
             className="section"
-            aria-label="Formation et parcours"
+            aria-label={t("Formation et parcours")}
           >
             <div className="container">
               <SectionTitle label="parcours" title="Formation & expériences" />
-              <Timeline title="Formations" entries={p.education} />
-              <Timeline title="Expériences" entries={p.experiences} />
+              <Timeline title={t("Formations")} entries={p.education} />
+              <Timeline title={t("Expériences")} entries={p.experiences} />
             </div>
           </section>
         )}
         <section
           id="contact"
           className="section contact-section"
-          aria-label="Contact"
+          aria-label={t("Contact")}
         >
           <div className="container">
             <SectionTitle label="contact" title="Discutons" />
             <div className="contact-grid">
               <div>
                 <p className="muted">
-                  Un projet académique, un échange ou une opportunité ?
-                  Échangeons autour de la cybersécurité et de mon parcours.
+                  {t(
+                    "Un projet académique, un échange ou une opportunité ? Échangeons autour de la cybersécurité et de mon parcours.",
+                  )}
                 </p>
                 {p.email && (
                   <a className="contact-address" href={`mailto:${p.email}`}>
@@ -307,18 +360,21 @@ export default function App() {
               </div>
               <div className="contact-panel">
                 <Mail size={24} strokeWidth={1.5} aria-hidden="true" />
-                <h3>Un premier échange ?</h3>
+                <h3>{t("Un premier échange ?")}</h3>
                 <p className="muted">
-                  Présentez votre idée et le contexte de votre message. Je serai
-                  ravi d’en discuter avec vous.
+                  {t(
+                    "Présentez votre idée et le contexte de votre message. Je serai ravi d’en discuter avec vous.",
+                  )}
                 </p>
                 {p.email ? (
                   <a className="button-primary" href={`mailto:${p.email}`}>
-                    M’écrire par e-mail{" "}
+                    {t("M’écrire par e-mail")}{" "}
                     <ArrowUpRight size={16} aria-hidden="true" />
                   </a>
                 ) : (
-                  <p className="muted">Adresse de contact à renseigner.</p>
+                  <p className="muted">
+                    {t("Adresse de contact à renseigner.")}
+                  </p>
                 )}
               </div>
             </div>
@@ -330,7 +386,8 @@ export default function App() {
           © {new Date().getFullYear()} {p.name}
         </p>
         <a className="text-link" href="#accueil">
-          Retour en haut <ArrowUp size={14} aria-hidden="true" />
+          {t("Retour en haut")}
+          <ArrowUp size={14} aria-hidden="true" />
         </a>
       </footer>
     </>

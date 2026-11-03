@@ -10,14 +10,14 @@ export const portfolio = {
   email: "kiarmand413@gmail.com",
   portrait: "images/KI_ARMAND.png",
   portraitAlt: "KI ARMAND JUDICAEL",
-  cv: "",
+  cv: "CV_KI_Armand_Judicael.pdf",
   about:
     "Je suis KI Armand Judicaël, étudiant en cybersécurité à Ouagadougou. Mon objectif est de comprendre le fonctionnement des systèmes, les risques auxquels ils sont exposés et les moyens de mieux les protéger.",
   approach:
     "Je souhaite développer une démarche rigoureuse : comprendre un problème, expérimenter dans un environnement autorisé, documenter les observations et expliquer les limites des solutions proposées.",
   socials: [
-    { label: "GitHub", url: "" },
-    { label: "LinkedIn", url: "" },
+    { label: "GitHub", url: "https://github.com/Armand413" },
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/armand-ki-a43667346/" },
   ],
   skills: [
     {

@@ -1,8 +1,10 @@
+import { useLanguage } from "../i18n/language";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, Moon, Sun, Monitor, X } from "lucide-react";
 import { portfolio } from "../data/portfolio";
 
 export default function Navigation({ links }) {
+  const { t, language, setLanguage } = useLanguage();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("accueil");
   const [theme, setTheme] = useState(() => {
@@ -72,14 +74,14 @@ export default function Navigation({ links }) {
         <a
           href="#accueil"
           className="brand"
-          aria-label={`${portfolio.name} — Accueil`}
+          aria-label={`${portfolio.name} — ${t("Accueil")}`}
           onClick={() => setOpen(false)}
         >
           {portfolio.monogram}
           <span>.</span>
         </a>
         <nav
-          aria-label="Navigation principale"
+          aria-label={t("Navigation principale")}
           id="main-nav"
           className={`nav ${open ? "is-open" : ""}`}
         >
@@ -97,11 +99,33 @@ export default function Navigation({ links }) {
             </a>
           ))}
         </nav>
-        <div className="flex items-center gap-3">
+        <div className="navigation-controls flex items-center gap-3">
+          <button
+            type="button"
+            className="language-button"
+            onClick={() => setLanguage(language === "fr" ? "en" : "fr")}
+            aria-label={
+              language === "fr" ? "Switch to English" : "Passer en français"
+            }
+          >
+            <span
+              lang="fr"
+              className={language === "fr" ? "selected-language" : ""}
+            >
+              FR
+            </span>
+            <span aria-hidden="true">/</span>
+            <span
+              lang="en"
+              className={language === "en" ? "selected-language" : ""}
+            >
+              EN
+            </span>
+          </button>
           <button
             className="icon-button"
             onClick={() => setTheme(next)}
-            aria-label={`Thème ${labels[theme]}. Activer le mode ${labels[next]}`}
+            aria-label={`${t("Thème")} ${t(labels[theme])}. ${t("Activer le mode")} ${t(labels[next])}`}
           >
             <Icon size={19} aria-hidden="true" />
           </button>
@@ -110,7 +134,7 @@ export default function Navigation({ links }) {
             className="icon-button menu-button"
             aria-expanded={open}
             aria-controls="main-nav"
-            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-label={open ? t("Fermer le menu") : t("Ouvrir le menu")}
             onClick={() => setOpen(!open)}
           >
             {open ? <X size={22} /> : <Menu size={22} />}
