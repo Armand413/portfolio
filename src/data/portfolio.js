@@ -117,7 +117,7 @@ export const portfolio = {
     "Deux installations de Wazuh ont échoué (le service manager dépassait son délai de démarrage) ; l'analyse des journaux système a mené à revoir le dimensionnement de la machine (passage à 4 vCPU et 8 Go de RAM), après quoi l'installation a abouti. Cette étape m'a appris à diagnostiquer une panne à partir des journaux plutôt qu'à relancer une installation au hasard, et à vérifier la cohérence des fuseaux horaires avant de mesurer un temps de détection.",
   result:
     "Infrastructure opérationnelle avec un agent actif et supervisé. Premiers résultats : un test manuel (3 échecs) a généré 5 alertes de faible gravité, tandis qu'une attaque automatisée (20 échecs en 24 secondes) a généré 33 alertes et déclenché la règle de détection de force brute, absente du premier test. Projet en cours : mesures précises du temps de détection, règle de corrélation personnalisée et intégration d'une sonde réseau (Suricata) à venir.",
-  image: "images/detection-bruteforce-dashboard.png",
+  image: "images/dashboard.png",
   imageAlt: "Tableau de bord Wazuh affichant les alertes de force brute SSH détectées sur l'agent sensor",
   demo: "",
   source: "https://github.com/Armand413/wazuh-mini-soc",
