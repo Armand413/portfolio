@@ -100,6 +100,30 @@ export const portfolio = {
     }
     ,
     {
+  id: "mini-soc",
+  placeholder: false,
+  title: "CyberDefender Lab — Mini-SOC avec Wazuh",
+  category: "Projet personnel de cybersécurité",
+  year: "2026",
+  description:
+    "Laboratoire SOC virtualisé construit de zéro sous VirtualBox : supervision centralisée avec Wazuh et détection d'attaques SSH jouées depuis Kali Linux contre mes propres machines.",
+  role: "Conception, déploiement et administration en solo",
+  technologies: ["Wazuh", "VirtualBox", "Ubuntu Server", "Kali Linux", "Hydra", "Bash", "SSH"],
+  problem:
+    "Construire un laboratoire de détection fonctionnel capable de superviser une machine, de détecter des attaques réelles (échecs d'authentification, force brute SSH) et de mesurer la qualité de cette détection, plutôt que de se limiter à une installation de démonstration.",
+  solution:
+    "Conception du réseau et des rôles (serveur SOC, machine supervisée, poste d'attaque), déploiement de Wazuh en tout-en-un (indexer, manager, dashboard), enrôlement d'un agent, puis attaques SSH depuis Kali : échecs d'authentification manuels, suivis d'une force brute automatisée avec Hydra (dictionnaire de 20 mots de passe). Les deux scénarios ont généré des alertes distinctes dans Wazuh, avec une règle de détection de force brute déclenchée uniquement sur l'attaque automatisée.",
+  choices:
+    "Deux installations de Wazuh ont échoué (le service manager dépassait son délai de démarrage) ; l'analyse des journaux système a mené à revoir le dimensionnement de la machine (passage à 4 vCPU et 8 Go de RAM), après quoi l'installation a abouti. Cette étape m'a appris à diagnostiquer une panne à partir des journaux plutôt qu'à relancer une installation au hasard, et à vérifier la cohérence des fuseaux horaires avant de mesurer un temps de détection.",
+  result:
+    "Infrastructure opérationnelle avec un agent actif et supervisé. Premiers résultats : un test manuel (3 échecs) a généré 5 alertes de faible gravité, tandis qu'une attaque automatisée (20 échecs en 24 secondes) a généré 33 alertes et déclenché la règle de détection de force brute, absente du premier test. Projet en cours : mesures précises du temps de détection, règle de corrélation personnalisée et intégration d'une sonde réseau (Suricata) à venir.",
+  image: "images/detection-bruteforce-dashboard.png",
+  imageAlt: "Tableau de bord Wazuh affichant les alertes de force brute SSH détectées sur l'agent sensor",
+  demo: "",
+  source: "https://github.com/Armand413/wazuh-mini-soc",
+  visual: "orbit",
+},
+     {
       id: "projet-02",
       placeholder: true,
       title: "[Votre projet académique]",
