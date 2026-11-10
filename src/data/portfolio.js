@@ -123,7 +123,27 @@ export const portfolio = {
   source: "https://github.com/Armand413/wazuh-mini-soc",
   visual: "orbit",
 },
-     {
+{
+  id: "niifyeen",
+  placeholder: false,
+  title: "Niifyeen",
+  category: "Surveillance",
+  year: "2026",
+  description: "Prototype de reconnaissance faciale et de suivi multi-caméras, qui illustre les technologies sur lesquelles s'appuient de nombreux systèmes de sécurité publique. Pour un gouvernement, un tel outil permet de retrouver rapidement une personne recherchée (personne disparue, suspect, individu représentant une menace), de renforcer la sécurité des lieux sensibles (aéroports, gares, grands événements) et de réagir plus vite en situation d'urgence. Le prototype démontre à petite échelle la faisabilité technique de ces systèmes. Il est développé dans un environnement fermé et contrôlé, avec des volontaires consentants, afin d'étudier à la fois son potentiel opérationnel et les garanties nécessaires (cadre légal, protection des données, contrôle démocratique) pour qu'un déploiement à plus grande échelle reste conforme aux droits fondamentaux des citoyens.",
+  role: "Conception, développement et administration, en équipe",
+  technologies: ["Python", "FastAPI", "Uvicorn", "SQLAlchemy", "SQLite", "OpenCV", "YOLOv8", "ByteTrack", "InsightFace", "JavaScript"],
+  problem: "Montrer qu'on peut retrouver une personne recherchée à travers plusieurs caméras sans surveiller manuellement chaque flux. Il fallait détecter les personnes, reconnaître celles que l'on cherche, les suivre d'une caméra à l'autre et alerter un opérateur, le tout avec du matériel ordinaire et sans service cloud.",
+  solution: "J'ai construit une application web locale. YOLOv8 détecte les personnes et ByteTrack les suit d'image en image. InsightFace compare les visages à une liste de cibles et de personnes enregistrées. Une fois reconnue, une personne garde son identité tant que sa silhouette est suivie, même si son visage n'est plus visible (durée réglable). Les caméras sont placées sur une carte de Ouagadougou et le parcours d'une cible peut être rejoué dans l'historique. Les alertes ne se déclenchent que pour les cibles, et la détection tourne côté serveur, indépendamment du navigateur.",
+  choices: "Tout reste sur la machine (serveur limité à 127.0.0.1, pas d'envoi de données biométriques vers l'extérieur) pour limiter les risques liés à des données sensibles. J'ai retiré les modules qui n'étaient pas essentiels (statistiques, rapports, zones, enregistrements) pour garder un outil centré sur la recherche d'une cible. Principale difficulté : l'identification exige un visage lisible, d'où le maintien d'identité par le suivi, avec son risque de confusion quand des personnes se croisent. Le prototype n'a pas été validé avec de vraies caméras de terrain et ses seuils ne sont pas calibrés. J'en retiens que la partie technique est la plus simple : ce qui compte vraiment, ce sont le consentement, la protection des données et le contrôle humain.",
+  result: "Un prototype fonctionnel avec 518 tests automatisés qui passent : détection et suivi multi-caméras, gestion de cibles, alertes ciblées, carte de la ville et historique des parcours. Il n'a pas été mesuré en conditions réelles (taux de reconnaissance, fausses alertes).",
+  image: "images/supervision.png",
+  imageAlt: "Interface de Niifyeen : carte de Ouagadougou avec les caméras et le suivi d'une cible",
+  demo: "",
+  source: "https://github.com/Armand413/niifyeen",
+  visual: "orbit",
+},
+     
+    {
       id: "projet-02",
       placeholder: true,
       title: "[Votre projet académique]",
